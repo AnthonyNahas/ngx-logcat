@@ -38,8 +38,8 @@
     "no-bitwise": true,
     "no-console": [
       true,
-      "debug",
-      "info",
+//      "debug",
+//      "info",
       "time",
       "timeEnd",
       "trace"
