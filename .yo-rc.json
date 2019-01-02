@@ -1,0 +1,45 @@
+{
+  "generator-ngx-library": {
+    "version": "6.2.1",
+    "authorName": "Anthony Nahas",
+    "authorEmail": "anthony.na@hotmail.de",
+    "githubUsername": "AnthonyNahas",
+    "githubRepoName": "ngx-logcat",
+    "projectName": "ngx-logcat",
+    "projectVersion": "0.0.1",
+    "projectDescription": "Ngx-logcat is an angular open source library for logging and debugging purposes",
+    "projectKeywords": [
+      "angular",
+      "lib",
+      "ngx",
+      "logging",
+      "logger",
+      "logcat",
+      "debugging",
+      "console",
+      "logs",
+      "info",
+      "warn",
+      "debug"
+    ],
+    "ngVersion": "6.0.0",
+    "ngModules": [
+      "core",
+      "common"
+    ],
+    "otherDependencies": [],
+    "additionalPackageFiles": [],
+    "dependenciesRange": "^",
+    "ngPrefix": "my-lib",
+    "testingFramework": "jest",
+    "useGreenkeeper": true,
+    "useCompodoc": true,
+    "enforceNgGitCommitMsg": true,
+    "exclusions": [
+      "config/karma.conf.js",
+      "config/webpack.test.js",
+      "config/karma-test-shim.js"
+    ],
+    "deleteExclusions": []
+  }
+}
