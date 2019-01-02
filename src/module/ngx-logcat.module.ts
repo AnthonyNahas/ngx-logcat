@@ -15,10 +15,10 @@ export { LibService } from './service/lib.service';
   exports: [LibComponent],
   declarations: [LibComponent]
 })
-export class LibModule {
+export class NgxLogcatModule {
   static forRoot(): ModuleWithProviders {
     return {
-      ngModule: LibModule,
+      ngModule: NgxLogcatModule,
       providers: [LibService]
     };
   }
