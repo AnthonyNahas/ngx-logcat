@@ -4,28 +4,41 @@ import {Level, NgxLogcatConfig, NgxLogcatToken} from '../ngx-logcat.module';
 @Injectable()
 export class Logcat {
 
+  _tag: String;
+
   constructor(@Inject(NgxLogcatToken) public config: NgxLogcatConfig) {
   }
 
-  canLog(level: Level): boolean {
-    return this.config.level >= level;
+  private _canLog(level: Level): boolean {
+    return this.config.level >= level && this.config.enable;
+  }
+
+  t(tag: string) {
+    return this.tag(tag);
+  }
+
+  tag(tag: string) {
+    this._tag = tag;
+    return this;
   }
 
 
   d() {
+    return this.debug(null);
+  }
 
+  debug(value: any, ...rest: any[]) {
+    if (this._canLog(Level.DEBUG)) {
+      console.debug(value, ...rest);
+    }
+    return this;
   }
 
   log(value: any, ...rest: any[]) {
     if (this.config.enable) {
       console.log(value, ...rest);
     }
-  }
-
-  debug(value: any, ...rest: any[]) {
-    if (this.canLog(Level.DEBUG)) {
-      console.debug(value, ...rest);
-    }
+    return this;
   }
 
   error(error: Error) {
@@ -36,4 +49,8 @@ export class Logcat {
     console.warn(value, ...rest);
   }
 
+  clear() {
+    console.clear();
+    return this;
+  }
 }
