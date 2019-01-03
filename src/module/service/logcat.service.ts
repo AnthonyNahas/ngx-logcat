@@ -13,28 +13,28 @@ export class Logcat {
     return this.config.level >= level && this.config.enable;
   }
 
-  t(tag: string) {
+  t(tag: string): Logcat {
     return this.tag(tag);
   }
 
-  tag(tag: string) {
+  tag(tag: string): Logcat {
     this._tag = tag;
     return this;
   }
 
 
-  d() {
+  d(): Logcat {
     return this.debug(null);
   }
 
-  debug(value: any, ...rest: any[]) {
+  debug(value: any, ...rest: any[]): Logcat {
     if (this._canLog(Level.DEBUG)) {
       console.debug(value, ...rest);
     }
     return this;
   }
 
-  log(value: any, ...rest: any[]) {
+  log(value: any, ...rest: any[]): Logcat {
     if (this.config.enable) {
       console.log(value, ...rest);
     }
@@ -49,7 +49,7 @@ export class Logcat {
     console.warn(value, ...rest);
   }
 
-  clear() {
+  clear(): Logcat {
     console.clear();
     return this;
   }
