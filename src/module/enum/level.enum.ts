@@ -1,7 +1,7 @@
 export enum Level {
-  VERBOSE,
-  LOG,
+  ALL,
   DEBUG,
+  LOG,
   INFO,
   WARN,
   ERROR,

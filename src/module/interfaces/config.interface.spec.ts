@@ -31,7 +31,7 @@ describe('NgxLogcatConfig with provider', () => {
     expect(config).toBeTruthy();
   }));
 
-  it('should logcat be enabled and level = VERBOSE', inject([NgxLogcatToken], (config: NgxLogcatConfig) => {
+  it('should logcat be enabled and level = ALL', inject([NgxLogcatToken], (config: NgxLogcatConfig) => {
     expect(config.enable).toBeFalsy();
     expect(config.level).toEqual(Level.DEBUG)
   }));
@@ -46,10 +46,10 @@ describe('NgxLogcatConfig with optional args - only enable', () => {
     });
   });
 
-  it('should logcat be enabled and level = VERBOSE', inject([NgxLogcatToken], (config: NgxLogcatConfig) => {
+  it('should logcat be enabled and level = ALL', inject([NgxLogcatToken], (config: NgxLogcatConfig) => {
     mergeDefaultConfig(config);
     expect(config.enable).toBeTruthy();
-    expect(config.level).toEqual(Level.VERBOSE)
+    expect(config.level).toEqual(Level.ALL)
   }));
 });
 
@@ -62,10 +62,10 @@ describe('NgxLogcatConfig with default config obj', () => {
     });
   });
 
-  it('should logcat be enabled and level = VERBOSE with using and providing the default config obj', inject([NgxLogcatToken], (config: NgxLogcatConfig) => {
+  it('should logcat be enabled and level = ALL with using and providing the default config obj', inject([NgxLogcatToken], (config: NgxLogcatConfig) => {
     mergeDefaultConfig(config);
     expect(config.enable).toBeTruthy();
-    expect(config.level).toEqual(Level.VERBOSE)
+    expect(config.level).toEqual(Level.ALL)
   }));
 });
 
@@ -78,9 +78,9 @@ describe('NgxLogcatConfig with empty config', () => {
     });
   });
 
-  it('should logcat be enabled and level = VERBOSE without using and providing the default value', inject([NgxLogcatToken], (config: NgxLogcatConfig) => {
+  it('should logcat be enabled and level = ALL without using and providing the default value', inject([NgxLogcatToken], (config: NgxLogcatConfig) => {
     mergeDefaultConfig(config);
     expect(config.enable).toBeTruthy();
-    expect(config.level).toEqual(Level.VERBOSE)
+    expect(config.level).toEqual(Level.ALL)
   }));
 });

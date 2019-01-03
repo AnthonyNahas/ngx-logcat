@@ -9,7 +9,7 @@ export class Logcat {
   constructor(@Inject(NgxLogcatToken) public config: NgxLogcatConfig) {
   }
 
-  private _canLog(level: Level): boolean {
+  canLog(level: Level): boolean {
     return this.config.level >= level && this.config.enable;
   }
 
@@ -28,7 +28,7 @@ export class Logcat {
   }
 
   debug(value: any, ...rest: any[]): Logcat {
-    if (this._canLog(Level.DEBUG)) {
+    if (this.canLog(Level.DEBUG)) {
       console.debug(value, ...rest);
     }
     return this;
@@ -41,12 +41,31 @@ export class Logcat {
     return this;
   }
 
-  error(error: Error) {
-    // this.errorHandler.handleError(error);
+  i(): Logcat {
+    return this.info(null);
+  }
+
+  info(value: any, ...rest: any[]): Logcat {
+    if (this.config.enable) {
+      console.log(value, ...rest);
+    }
+    return this;
+  }
+
+  w() {
+
   }
 
   warn(value: any, ...rest: any[]) {
     console.warn(value, ...rest);
+  }
+
+  e() {
+
+  }
+
+  error(error: Error) {
+    // this.errorHandler.handleError(error);
   }
 
   clear(): Logcat {
