@@ -7,5 +7,5 @@ export interface NgxLogcatConfig {
 
 export const defaultLogcatConfig: NgxLogcatConfig = {
   enable: true,
-  level: Level.VERBOSE
+  level: 0
 };

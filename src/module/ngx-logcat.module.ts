@@ -1,5 +1,5 @@
 import {CommonModule} from '@angular/common';
-import {NgModule, ModuleWithProviders, InjectionToken} from '@angular/core';
+import {NgModule, ModuleWithProviders, InjectionToken, Inject} from '@angular/core';
 
 import {Logcat} from './service/logcat.service';
 import {defaultLogcatConfig, NgxLogcatConfig} from './interfaces/config.interface';
@@ -11,6 +11,10 @@ export {defaultLogcatConfig, NgxLogcatConfig} from './interfaces/config.interfac
 
 export const NgxLogcatToken = new InjectionToken<NgxLogcatConfig>('NgxAuthFirebaseUIConfig');
 
+export function mergeDefaultConfig(config: NgxLogcatConfig) {
+  return config === defaultLogcatConfig ? config : Object.assign(config, defaultLogcatConfig);
+}
+
 @NgModule({
   imports: [
     CommonModule
@@ -19,8 +23,8 @@ export const NgxLogcatToken = new InjectionToken<NgxLogcatConfig>('NgxAuthFireba
   declarations: []
 })
 export class NgxLogcatModule {
-  static forRoot(config?: NgxLogcatConfig): ModuleWithProviders {
-    // Object.assign(config, defaultLogcatConfig);
+
+  static forRoot(config: NgxLogcatConfig = defaultLogcatConfig): ModuleWithProviders {
     return {
       ngModule: NgxLogcatModule,
       providers:
@@ -29,5 +33,9 @@ export class NgxLogcatModule {
           {provide: NgxLogcatToken, useValue: config}
         ]
     };
+  }
+
+  constructor(@Inject(NgxLogcatToken) config: NgxLogcatConfig) {
+    config = mergeDefaultConfig(config);
   }
 }
