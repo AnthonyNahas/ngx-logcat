@@ -1,5 +1,6 @@
 export enum Level {
   ALL,
+  ASSERT,
   DEBUG,
   LOG,
   INFO,

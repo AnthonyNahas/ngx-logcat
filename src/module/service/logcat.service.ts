@@ -22,6 +22,13 @@ export class Logcat {
     return this;
   }
 
+  assert(value: boolean, ...rest: any[]): Logcat {
+    if (this.canLog(Level.ASSERT)) {
+      console.debug(value, ...rest);
+    }
+    return this;
+  }
+
 
   d(): Logcat {
     return this.debug(null);
