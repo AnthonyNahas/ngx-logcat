@@ -1,8 +1,7 @@
-import {TestBed, inject} from '@angular/core/testing';
+import {inject, TestBed} from '@angular/core/testing';
 
 import {Logcat} from './logcat.service';
-import {NgxLogcatConfig, NgxLogcatToken} from '../ngx-logcat.module';
-import {Level} from '../enum/level.enum';
+import {Level, NgxLogcatConfig, NgxLogcatToken} from '../ngx-logcat.module';
 
 describe('Logcat Service', () => {
   beforeEach(() => {
@@ -18,7 +17,43 @@ describe('Logcat Service', () => {
 
   it('should canlog methods validate the configuration',
     inject([Logcat, NgxLogcatToken], (logcat: Logcat, config: NgxLogcatConfig) => {
-      expect(logcat.canLog()).toBeTruthy();
+      expect(logcat.canLog(config.level)).toBeTruthy();
     }));
 
+  it('should not log when level is set to OFF',
+    inject([Logcat, NgxLogcatToken], (logcat: Logcat, config: NgxLogcatConfig) => {
+      config.level = Level.OFF;
+      expect(logcat.canLog(Level.DEBUG)).toBeFalsy();
+      expect(logcat.canLog(Level.LOG)).toBeFalsy();
+      expect(logcat.canLog(Level.INFO)).toBeFalsy();
+      expect(logcat.canLog(Level.WARN)).toBeFalsy();
+      expect(logcat.canLog(Level.ERROR)).toBeFalsy();
+    }));
+
+  it('should only log errors when level is only set to ERROR',
+    inject([Logcat, NgxLogcatToken], (logcat: Logcat, config: NgxLogcatConfig) => {
+      config.level = Level.ERROR;
+      expect(logcat.canLog(Level.DEBUG)).toBeFalsy();
+      expect(logcat.canLog(Level.LOG)).toBeFalsy();
+      expect(logcat.canLog(Level.INFO)).toBeFalsy();
+      expect(logcat.canLog(Level.WARN)).toBeFalsy();
+      expect(logcat.canLog(Level.ERROR)).toBeTruthy();
+    }));
+
+  it('should log anything when level is only set to ALL or DEBUG',
+    inject([Logcat, NgxLogcatToken], (logcat: Logcat, config: NgxLogcatConfig) => {
+      config.level = Level.ALL;
+      expect(logcat.canLog(Level.DEBUG)).toBeTruthy();
+      expect(logcat.canLog(Level.LOG)).toBeTruthy();
+      expect(logcat.canLog(Level.INFO)).toBeTruthy();
+      expect(logcat.canLog(Level.WARN)).toBeTruthy();
+      expect(logcat.canLog(Level.ERROR)).toBeTruthy();
+
+      config.level = Level.DEBUG;
+      expect(logcat.canLog(Level.DEBUG)).toBeTruthy();
+      expect(logcat.canLog(Level.LOG)).toBeTruthy();
+      expect(logcat.canLog(Level.INFO)).toBeTruthy();
+      expect(logcat.canLog(Level.WARN)).toBeTruthy();
+      expect(logcat.canLog(Level.ERROR)).toBeTruthy();
+    }));
 });

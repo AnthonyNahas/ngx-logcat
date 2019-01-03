@@ -10,7 +10,7 @@ export class Logcat {
   }
 
   canLog(level: Level): boolean {
-    return this.config.level >= level && this.config.enable;
+    return this.config.level <= level && this.config.enable;
   }
 
   t(tag: string): Logcat {
