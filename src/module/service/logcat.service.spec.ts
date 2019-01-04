@@ -56,4 +56,30 @@ describe('Logcat Service', () => {
       expect(logcat.canLog(Level.WARN)).toBeTruthy();
       expect(logcat.canLog(Level.ERROR)).toBeTruthy();
     }));
+
+  it('should not detect tables - an array that contains only objects',
+    inject([Logcat], (logcat: Logcat) => {
+      const objsArray = [
+        {name: 'Anthony', age: 25, perk: 'Ghost'},
+        {name: 'Elie', age: 39, perk: 'Scavenger'},
+        {name: 'Unknown', age: 0, perk: 'Unknown'},
+      ];
+      expect(logcat.autoDetectTables([1, 2, 4, 5, 5, 6])).toBeFalsy();
+      expect(logcat.autoDetectTables([1, 2, 'a', '1as', 4])).toBeFalsy();
+      expect(logcat.autoDetectTables(['a', '1as'])).toBeFalsy();
+      expect(logcat.autoDetectTables([1, 2, 3, objsArray])).toBeFalsy();
+    }));
+
+  it('should detect tables - an array that contains only objects',
+    inject([Logcat], (logcat: Logcat) => {
+      const objsArray = [
+        {name: 'Anthony', age: 25, perk: 'Ghost'},
+        {name: 'Elie', age: 39, perk: 'Scavenger'},
+        {name: 'Unknown', age: 0, perk: 'Unknown'},
+      ];
+      expect(logcat.autoDetectTables(objsArray)).toBeTruthy();
+      expect(logcat.autoDetectTables([[1, 2, 3], objsArray])).toBeTruthy();
+      expect(logcat.autoDetectTables([[1, 2, 3], [4, 5, 6]])).toBeTruthy();
+    }));
+
 });
