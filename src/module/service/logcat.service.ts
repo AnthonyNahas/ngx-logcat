@@ -4,7 +4,7 @@ import {Level, NgxLogcatConfig, NgxLogcatToken} from '../ngx-logcat.module';
 @Injectable()
 export class Logcat {
 
-  _tag: String;
+  _tag: String = 'Logcat';
 
   constructor(@Inject(NgxLogcatToken) public config: NgxLogcatConfig) {
   }
@@ -22,28 +22,33 @@ export class Logcat {
     return this;
   }
 
-  assert(value: boolean, ...rest: any[]): Logcat {
+  assert(message: boolean, ...logs: any[]): Logcat {
     if (this.canLog(Level.ASSERT)) {
-      console.debug(value, ...rest);
+      console.debug(message, ...logs);
     }
     return this;
   }
 
 
-  d(): Logcat {
-    return this.debug(null);
+  d(message: any, ...logs: any[]): Logcat {
+    return this.debug(message, ...logs);
   }
 
-  debug(value: any, ...rest: any[]): Logcat {
+  debug(message: any, ...logs: any[]): Logcat {
     if (this.canLog(Level.DEBUG)) {
-      console.debug(value, ...rest);
+      const timeStamp = new Date();
+      console.group(this._tag);
+      console.debug('message: ', message);
+      console.debug('logs: ', ...logs);
+      console.debug('timeStamp: ', timeStamp);
+      console.groupEnd();
     }
     return this;
   }
 
-  log(value: any, ...rest: any[]): Logcat {
+  log(message: any, ...logs: any[]): Logcat {
     if (this.config.enable) {
-      console.log(value, ...rest);
+      console.log(message, ...logs);
     }
     return this;
   }
@@ -52,9 +57,9 @@ export class Logcat {
     return this.info(null);
   }
 
-  info(value: any, ...rest: any[]): Logcat {
+  info(message: any, ...logs: any[]): Logcat {
     if (this.config.enable) {
-      console.log(value, ...rest);
+      console.log(message, ...logs);
     }
     return this;
   }
@@ -63,8 +68,8 @@ export class Logcat {
 
   }
 
-  warn(value: any, ...rest: any[]) {
-    console.warn(value, ...rest);
+  warn(message: any, ...logs: any[]) {
+    console.warn(message, ...logs);
   }
 
   e() {
@@ -78,5 +83,15 @@ export class Logcat {
   clear(): Logcat {
     console.clear();
     return this;
+  }
+
+  autoDetectTables(value: any): boolean {
+    if (Array.isArray(value)) {
+      const noObjs = value.filter(item =>
+        typeof item === 'object' && item !== null
+      );
+      return noObjs.length > 0 && noObjs.length === value.length;
+    }
+    return false;
   }
 }
