@@ -4,7 +4,7 @@ import {Level, NgxLogcatConfig, NgxLogcatToken} from '../ngx-logcat.module';
 @Injectable()
 export class Logcat {
 
-  _tag: String = 'Logcat';
+  _tag = 'Logcat';
 
   constructor(@Inject(NgxLogcatToken) public config: NgxLogcatConfig) {
   }
@@ -146,6 +146,12 @@ export class Logcat {
     }
   }
 
+  /**
+   * Detect automatically any array that contains only objects to be rendered
+   * as a table to the console.
+   *
+   * @param value - the value to check and detect
+   */
   autoDetectTables(value: any): boolean {
     if (Array.isArray(value)) {
       const noObjs = value.filter(item =>
