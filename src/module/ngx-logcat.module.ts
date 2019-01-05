@@ -7,6 +7,7 @@ import {defaultLogcatConfig, NgxLogcatConfig} from './interfaces/config.interfac
 // Export module's public API
 export {Logcat} from './service/logcat.service';
 export {Level} from './enum/level.enum';
+export {LogKeyCSS} from './enum/logkeycss.enum';
 export {defaultLogcatConfig, NgxLogcatConfig} from './interfaces/config.interface';
 
 export const NgxLogcatToken = new InjectionToken<NgxLogcatConfig>('NgxAuthFirebaseUIConfig');
