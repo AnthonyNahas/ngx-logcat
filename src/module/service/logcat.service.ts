@@ -1,10 +1,17 @@
 import {Inject, Injectable} from '@angular/core';
-import {Level, NgxLogcatConfig, NgxLogcatToken} from '../ngx-logcat.module';
+import {Level, LogKeyCSS, NgxLogcatConfig, NgxLogcatToken} from '../ngx-logcat.module';
+
 
 @Injectable()
 export class Logcat {
 
   _tag = 'Logcat';
+
+  infoCSS = 'background: #222; color: #bada55';
+  warnCSS = 'background: #222; color: #bada55';
+
+  timeStampCSS = `color: #1558c4; font-weight: bold`;
+
 
   constructor(@Inject(NgxLogcatToken) public config: NgxLogcatConfig) {
   }
@@ -89,33 +96,33 @@ export class Logcat {
 
   processLog(level: Level, message: any, ...logs: any[]) {
     const timeStamp = new Date();
-    console.group(this._tag);
+    console.group(`%c ${this._tag}`, this.getLogPropertyCSS(LogKeyCSS.TAG));
 
     switch (level) {
       case Level.DEBUG:
         this.processTablesWhenDetected(Level.DEBUG, message);
-        console.debug('logs: ', ...logs);
-        console.debug('timeStamp: ', timeStamp);
+        console.debug('% clogs: ', this.getLogPropertyCSS(LogKeyCSS.LOGS), ...logs);
+        console.debug('% ctimeStamp: ', this.getLogPropertyCSS(LogKeyCSS.TIMESTAMP), timeStamp);
         break;
       case Level.LOG:
         this.processTablesWhenDetected(Level.LOG, message);
-        console.log('logs: ', ...logs);
-        console.log('timeStamp: ', timeStamp);
+        console.log('%c logs: ', this.getLogPropertyCSS(LogKeyCSS.LOGS), ...logs);
+        console.log('%c timeStamp: ', this.getLogPropertyCSS(LogKeyCSS.TIMESTAMP), timeStamp);
         break;
       case Level.INFO:
-        console.info('message: ', message);
-        console.info('logs: ', ...logs);
-        console.info('timeStamp: ', timeStamp);
+        console.info('%c message: ', this.getLogPropertyCSS(LogKeyCSS.MESSAGE), message);
+        console.info('%c logs: ', this.getLogPropertyCSS(LogKeyCSS.LOGS), ...logs);
+        console.info('%c timeStamp: ', this.getLogPropertyCSS(LogKeyCSS.TIMESTAMP), timeStamp);
         break;
       case Level.WARN:
-        console.warn('message: ', message);
-        console.warn('logs: ', ...logs);
-        console.warn('timeStamp: ', timeStamp);
+        console.warn('%c message: ', this.getLogPropertyCSS(LogKeyCSS.MESSAGE), message);
+        console.warn('%c logs: ', this.getLogPropertyCSS(LogKeyCSS.LOGS), ...logs);
+        console.warn('%c timeStamp: ', this.getLogPropertyCSS(LogKeyCSS.TIMESTAMP), timeStamp);
         break;
       case Level.ERROR:
-        console.error('message: ', message);
-        console.error('logs: ', ...logs);
-        console.error('timeStamp: ', timeStamp);
+        console.error('%c message: ', this.getLogPropertyCSS(LogKeyCSS.MESSAGE), message);
+        console.error('%c logs: ', this.getLogPropertyCSS(LogKeyCSS.LOGS), ...logs);
+        console.error('%c timeStamp: ', this.getLogPropertyCSS(LogKeyCSS.TIMESTAMP), timeStamp);
         break;
     }
     console.groupEnd();
@@ -125,22 +132,22 @@ export class Logcat {
     if (this.autoDetectTables(message)) {
       switch (level) {
         case Level.DEBUG:
-          console.debug('message: ', 'table has been detected');
+          console.debug('%c message: ', this.getLogPropertyCSS(LogKeyCSS.MESSAGE), 'table has been detected');
           console.table(message);
           break;
 
         case Level.LOG:
-          console.log('message: ', 'table has been detected');
+          console.log('%c message: ', this.getLogPropertyCSS(LogKeyCSS.MESSAGE), 'table has been detected');
           console.table(message);
           break;
       }
     } else {
       switch (level) {
         case Level.DEBUG:
-          console.debug('message: ', message);
+          console.debug('%c message: ', this.getLogPropertyCSS(LogKeyCSS.MESSAGE), message);
           break;
         case Level.LOG:
-          console.log('message: ', message);
+          console.log('%c message: ', this.getLogPropertyCSS(LogKeyCSS.MESSAGE), message);
           break;
       }
     }
@@ -162,5 +169,30 @@ export class Logcat {
     return false;
   }
 
+  getLogPropertyColor(logKey: LogKeyCSS): string {
+    switch (logKey) {
+      case LogKeyCSS.TAG:
+        return '#6612ba';
+      case LogKeyCSS.MESSAGE:
+        return '#ff599c';
+      case LogKeyCSS.LOGS:
+        return '#1E8449';
+      case LogKeyCSS.TIMESTAMP:
+        return '#79D8F0';
+    }
+  }
+
+  getLogPropertyCSS(logKey: LogKeyCSS): string {
+    switch (logKey) {
+      case LogKeyCSS.TAG:
+        return `color: ${this.getLogPropertyColor(LogKeyCSS.TAG)}; font-weight: bold`;
+      case LogKeyCSS.MESSAGE:
+        return `color: ${this.getLogPropertyColor(LogKeyCSS.MESSAGE)}; font-weight: bold`;
+      case LogKeyCSS.LOGS:
+        return `color: ${this.getLogPropertyColor(LogKeyCSS.LOGS)}; font-weight: bold`;
+      case LogKeyCSS.TIMESTAMP:
+        return `color: ${this.getLogPropertyColor(LogKeyCSS.TIMESTAMP)}; font-weight: bold`;
+    }
+  }
 
 }
