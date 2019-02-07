@@ -1,19 +1,25 @@
 <p align="center">
-  <img height="256px" width="256px" style="text-align: center;" src="https://cdn.rawgit.com/AnthonyNahas/ngx-logcat/master/demo/src/assets/logo.svg">
+  <img height="256px" width="256px" style="text-align: center;" 
+  src="demo/src/assets/logo.svg">
 </p>
 
-# ngx-logcat - Ngx-logcat is an angular open source library for logging and debugging purposes
+# ngx-logcat - an angular open source library for logging and debugging purposes
 
 [![npm version](https://badge.fury.io/js/ngx-logcat.svg)](https://badge.fury.io/js/ngx-logcat),
+[![demo](https://img.shields.io/badge/demo-online-ed1c46.svg)](https://ngx-auth-firebaseui.firebaseapp.com)
+[![Join the chat at https://gitter.im/angular-material-extensions/Lobby](https://badges.gitter.im/angular-material-extensions/Lobby.svg)](https://gitter.im/angular-material-extensions/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![CircleCI branch](https://img.shields.io/circleci/project/github/AnthonyNahas/ngx-auth-firebaseui/master.svg?label=circleci)](https://circleci.com/gh/AnthonyNahas/ngx-auth-firebaseui)
 [![Build Status](https://travis-ci.org/AnthonyNahas/ngx-logcat.svg?branch=master)](https://travis-ci.org/AnthonyNahas/ngx-logcat)
 [![Coverage Status](https://coveralls.io/repos/github/AnthonyNahas/ngx-logcat/badge.svg?branch=master)](https://coveralls.io/github/AnthonyNahas/ngx-logcat?branch=master)
 [![dependency Status](https://david-dm.org/AnthonyNahas/ngx-logcat/status.svg)](https://david-dm.org/AnthonyNahas/ngx-logcat)
 [![devDependency Status](https://david-dm.org/AnthonyNahas/ngx-logcat/dev-status.svg?branch=master)](https://david-dm.org/AnthonyNahas/ngx-logcat#info=devDependencies)
 [![Greenkeeper Badge](https://badges.greenkeeper.io/AnthonyNahas/ngx-logcat.svg)](https://greenkeeper.io/)
+[![license](https://img.shields.io/github/license/anthonynahas/ngx-auth-firebaseui.svg?style=flat-square)](https://github.com/AnthonyNahas/ngx-auth-firebaseui/blob/master/LICENSE)
+
 
 ## Demo
 
-View all the directives in action at https://AnthonyNahas.github.io/ngx-logcat
+View all the directives in action at [https://anthonynahas.github.io/ngx-logcat](https://anthonynahas.github.io/ngx-logcat)
 
 ## Dependencies
 * [Angular](https://angular.io) (*requires* Angular 2 or higher, tested with 2.0.0)
@@ -74,5 +80,5 @@ export class OtherModule {
 
 ## License
 
-Copyright (c) 2019 Anthony Nahas. Licensed under the MIT License (MIT)
+Copyright (c) 2019 Anthony Nahas Licensed under the MIT License (MIT)
 
